@@ -4,49 +4,77 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Exercise Randomizer</title>
-
+  <title>Randomentals</title>
+  
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  
   <!-- Custom styles for this template -->
   <link href="css/styles.css" rel="stylesheet">
-
+  
 </head>
 
 <body>
-  <!-- START Main Container -->
-  <div class="container-fluid d-flex h-100 flex-column bg-info text-white text-center" id="page-content-wrapper">
-    <div class="container bg-info pt-5 pb-2">
-        <h1 class="display-1">scales</h1>
-        <p class="lead">a practice supplement</p>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-8 col-md-6 col-lg-4">
-        <button class="btn btn-outline-light btn-lg btn-block" id="begin_btn">begin</button>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Randomentals</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" id="nav-tog-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbars">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" data-toggle="tab" href="#nav-home" role="tab">Home</a>
+        <a class="nav-link nav_link" data-toggle="tab" href="#nav-settings" role="tab">Settings</a>
       </div>
     </div>
-    <div class="row justify-content-center pt-3 pb-5">
-      <div class="col-8 col-md-6 col-lg-4">
-        <button class="btn btn-outline-light btn-lg btn-block" id="settings_btn">settings</button>
+  </nav>
+  
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane show active" id="nav-home" role="tabpanel">
+      <main role="main" class="container">
+        <div class="starter-template">
+          <h1>Randomentals</h1>
+          <p class="lead">This is an application designed for musicians to allow them to practice fundamentals more efficiently. This is done using randomization.</p>
+          <div class="container p-5">
+            <button class="btn btn-primary btn-lg">Begin</button>
+          </div>
+        </div>
+        
+      </main><!-- /.container -->      
+    </div>
+    <div class="tab-pane" id="nav-settings" role="tabpanel">
+      <div class="starter-template">
+        <h1>Settings Page</h1>
+        <p class="lead">(in progress)</p>
       </div>
     </div>
   </div>
-  <!-- END Main Container -->
-
+  
+  
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  
   <script>
-    $("#begin_btn").click(function(e) {
-      // begin button code goes here
-    });
-    
-    $("#settings_btn").click(function(e) {
-      // settings button code goes here
+    $(".nav-link").on("click", function(){
+      var previous = $(".navbar-nav").find(".active");
+      previous.removeClass("active");
+      var previousTabId = previous.attr("href");
+      $(previousTabId).toggleClass("show active");
+
+      $(this).addClass("active");
+      var newTabId = $(this).attr("href");
+      $(newTabId).toggleClass("show active");
+
+      $(".navbar-nav").find(".active").attr("href")
+      
+      // automatically collapse navbar after clicking button, if the collapse menu is visible
+      if($("#nav-tog-icon").is(":visible"))
+      {
+        $("#nav-tog-icon").click()
+      }
     });
   </script>
-
+  
 </body>
 </html>
