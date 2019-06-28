@@ -5,48 +5,99 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Exercise Randomizer</title>
-
+  
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  
   <!-- Custom styles for this template -->
   <link href="css/styles.css" rel="stylesheet">
-
+  
 </head>
 
 <body>
-  <!-- START Main Container -->
+  
+  <!-- START main container -->
   <div class="container-fluid d-flex h-100 flex-column bg-info text-white text-center" id="page-content-wrapper">
-    <div class="container bg-info pt-5 pb-2">
-        <h1 class="display-1">scales</h1>
-        <p class="lead">a practice supplement</p>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-8 col-md-6 col-lg-4">
-        <button class="btn btn-outline-light btn-lg btn-block" id="begin_btn">begin</button>
+    <!-- START tabs -->
+    <div class="tab-content" id="tabContent">
+      
+      <!-- START main tab -->
+      <div class="tab-pane show active" id="tab-home" role="tabpanel">
+        <div class="container bg-info pt-5 pb-2">
+          <h1 class="display-1">scales</h1>
+          <p class="lead">a practice supplement</p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-8 col-md-6 col-lg-4">
+            <button class="btn btn-outline-light btn-lg btn-block" id="begin_btn">begin</button>
+          </div>
+        </div>
+        <div class="row justify-content-center pt-3 pb-5">
+          <div class="col-8 col-md-6 col-lg-4">
+            <button class="btn btn-outline-light btn-lg btn-block" id="settings_btn">settings</button>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row justify-content-center pt-3 pb-5">
-      <div class="col-8 col-md-6 col-lg-4">
-        <button class="btn btn-outline-light btn-lg btn-block" id="settings_btn">settings</button>
+      <!-- END main tab -->
+      
+      <!-- START practice tab -->
+      <div class="tab-pane" id="tab-practicing" role="tabpanel">
+        <nav class="navbar navbar-dark bg-info">
+          <a class="navbar-brand" href="#">
+            <img src="images/back-icon.png" class="color-inverted"><img>
+          </a>
+        </nav>
+        <div class="container bg-info pt-5 pb-2">
+          <h1 class="display-1">E</h1>
+          <p class="lead">Major Arpeggio</p>
+          <p class="lead">Major Scale</p>
+          <p class="lead">Minor Thirds</p>
+          <p class="lead">Major Thirds</p>
+          <p class="lead">(in progress)</p>
+        </div>
       </div>
+      <!-- END practice tab -->
+      
+      <!-- START settings tab -->
+      <div class="tab-pane" id="tab-settings" role="tabpanel">
+        <div class="container bg-info pt-5 pb-2">
+          <h1>Settings Page</h1>
+          <p class="lead">(in progress)</p>
+        </div>
+      </div>
+      <!-- END settings tab -->
+      
     </div>
+    <!-- END tabs -->
   </div>
-  <!-- END Main Container -->
-
+  <!-- END main container -->
+  
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  
   <script>
-    $("#begin_btn").click(function(e) {
-      // begin button code goes here
-    });
-    
-    $("#settings_btn").click(function(e) {
-      // settings button code goes here
+    $(document).ready(function(){
+      // these are the classes used to toggle the visibility of a tab
+      var classesToToggle = "show active";
+      
+      $("#begin_btn").click(function(e) {
+        // hide home screen tab
+        $("#tab-home").toggleClass( classesToToggle );
+        
+        // show practice tab
+        $("#tab-practicing").toggleClass( classesToToggle );      
+      });
+      
+      $("#settings_btn").click(function(e) {
+        // hide home screen tab
+        $("#tab-home").toggleClass( classesToToggle );
+        
+        // show settings tab
+        $("#tab-settings").toggleClass( classesToToggle );
+      });
     });
   </script>
-
+  
 </body>
 </html>
