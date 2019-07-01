@@ -28,36 +28,59 @@
     </nav>
     <!-- NAV BAR END -->
     
-    <div class="starter-template">
-        <h1>Settings Page</h1>
-        <p class="lead">(in progress)</p>
-    </div>
-    
+    <main class="container-fluid center-content">
+        <h1>Settings</h1>
+        <div class="row mt-3">
+            <div class="col-3">
+                <p class="lead">Keys</p>
+                <div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> C
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> F
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> Bb
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> Eb
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> Ab/G#
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> Db
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> Gb/F#
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> B
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> E
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> A
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> D
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input type="checkbox" name="options" autocomplete="off" checked> G
+                    </label>
+                </div>
+            </div>
+            <div class="col-9">
+                <p class="lead">Exercises</p>
+                <p class="lead text-muted">custom exercises will go here</p>
+            </div>
+        </div>
+    </main>
     
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        $(".nav-link").on("click", function(){
-            var previous = $(".navbar-nav").find(".active");
-            previous.removeClass("active");
-            var previousTabId = previous.attr("href");
-            $(previousTabId).toggleClass("show active");
-            
-            $(this).addClass("active");
-            var newTabId = $(this).attr("href");
-            $(newTabId).toggleClass("show active");
-            
-            $(".navbar-nav").find(".active").attr("href")
-            
-            // automatically collapse navbar after clicking button, if the collapse menu is visible
-            if($("#nav-tog-icon").is(":visible"))
-            {
-                $("#nav-tog-icon").click()
-            }
-        });
-    </script>
-    
 </body>
 </html>

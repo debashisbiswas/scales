@@ -28,16 +28,60 @@
     </nav>
     <!-- NAV BAR END -->
     
-    <div class="starter-template">
+    <main id="home-page-wrapper" class="container-fluid center-content">
         <h1>Scales App</h1>
-        <p class="lead">This is an application designed for musicians to allow them to practice fundamentals more efficiently. This is done using randomization.</p>
+        <p class="lead">
+            An app that randomizes fundamental exercises
+        </p>
         <div class="container p-5">
-            <button class="btn btn-primary btn-lg">Begin</button>
+            <button class="btn btn-primary btn-lg" onclick="beginPressed()">Begin</button>
+        </div>
+    </main>
+    
+    <div id="practicing-page-wrapper" class="center-content hidden">
+        <p class="lead">
+            (placeholder, in progress)
+        </p>
+        <h1 class="display-4">Eb</h1>
+        <p class="text-muted pb-4">
+            1/12
+        </p>
+        <p class="lead">
+            Natural Minor Scale
+        </p>
+        <p class="lead">
+            Melodic Minor Thirds
+        </p>
+        <p class="lead">
+            Major Scale
+        </p>
+        <p class="lead">
+            Harmonic Minor Scale
+        </p>   
+        <p class="lead">
+            ...
+        </p>        
+        <div class="container p-5">
+            <button class="btn btn-primary btn-lg" onclick="endPressed()">End</button>
         </div>
     </div>
     
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function beginPressed()
+        {
+            $("#home-page-wrapper").addClass("hidden");
+            $("#practicing-page-wrapper").removeClass("hidden");
+        }
+        
+        function endPressed()
+        {
+            $("#practicing-page-wrapper").addClass("hidden");
+            $("#home-page-wrapper").removeClass("hidden");
+        }
+    </script>
 </body>
 </html>
