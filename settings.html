@@ -21,23 +21,43 @@
         
         <div class="collapse navbar-collapse" id="navbars">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active">Home</a> <!-- current page -->
-                <a class="nav-link nav_link" href="settings.html">Settings</a>
+                <a class="nav-item nav-link" href="index.html">Home</a>
+                <a class="nav-link nav_link active">Settings</a> <!-- current page -->
             </div>
         </div>
     </nav>
     <!-- NAV BAR END -->
     
     <div class="starter-template">
-        <h1>Scales App</h1>
-        <p class="lead">This is an application designed for musicians to allow them to practice fundamentals more efficiently. This is done using randomization.</p>
-        <div class="container p-5">
-            <button class="btn btn-primary btn-lg">Begin</button>
-        </div>
+        <h1>Settings Page</h1>
+        <p class="lead">(in progress)</p>
     </div>
+    
     
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        $(".nav-link").on("click", function(){
+            var previous = $(".navbar-nav").find(".active");
+            previous.removeClass("active");
+            var previousTabId = previous.attr("href");
+            $(previousTabId).toggleClass("show active");
+            
+            $(this).addClass("active");
+            var newTabId = $(this).attr("href");
+            $(newTabId).toggleClass("show active");
+            
+            $(".navbar-nav").find(".active").attr("href")
+            
+            // automatically collapse navbar after clicking button, if the collapse menu is visible
+            if($("#nav-tog-icon").is(":visible"))
+            {
+                $("#nav-tog-icon").click()
+            }
+        });
+    </script>
+    
 </body>
 </html>
