@@ -2,102 +2,86 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Exercise Randomizer</title>
-  
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- Custom styles for this template -->
-  <link href="css/styles.css" rel="stylesheet">
-  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Scales</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
 </head>
 
 <body>
-  
-  <!-- START main container -->
-  <div class="container-fluid d-flex h-100 flex-column bg-info text-white text-center" id="page-content-wrapper">
-    <!-- START tabs -->
-    <div class="tab-content" id="tabContent">
-      
-      <!-- START main tab -->
-      <div class="tab-pane show active" id="tab-home" role="tabpanel">
-        <div class="container bg-info pt-5 pb-2">
-          <h1 class="display-1">scales</h1>
-          <p class="lead">a practice supplement</p>
+    <!-- NAV BAR START -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Scales App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" id="nav-tog-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbars">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active">Home</a> <!-- current page -->
+                <a class="nav-link nav_link" href="settings.html">Settings</a>
+            </div>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-8 col-md-6 col-lg-4">
-            <button class="btn btn-outline-light btn-lg btn-block" id="begin_btn">begin</button>
-          </div>
+    </nav>
+    <!-- NAV BAR END -->
+    
+    <main id="home-page-wrapper" class="container-fluid center-content">
+        <h1>Scales App</h1>
+        <p class="lead">
+            An app that randomizes fundamental exercises
+        </p>
+        <div class="container p-5">
+            <button class="btn btn-primary btn-lg" onclick="beginPressed()">Begin</button>
         </div>
-        <div class="row justify-content-center pt-3 pb-5">
-          <div class="col-8 col-md-6 col-lg-4">
-            <button class="btn btn-outline-light btn-lg btn-block" id="settings_btn">settings</button>
-          </div>
+    </main>
+    
+    <div id="practicing-page-wrapper" class="center-content hidden">
+        <p class="lead">
+            (placeholder, in progress)
+        </p>
+        <h1 class="display-4">Eb</h1>
+        <p class="text-muted pb-4">
+            1/12
+        </p>
+        <p class="lead">
+            Natural Minor Scale
+        </p>
+        <p class="lead">
+            Melodic Minor Thirds
+        </p>
+        <p class="lead">
+            Major Scale
+        </p>
+        <p class="lead">
+            Harmonic Minor Scale
+        </p>   
+        <p class="lead">
+            ...
+        </p>        
+        <div class="container p-5">
+            <button class="btn btn-primary btn-lg" onclick="endPressed()">End</button>
         </div>
-      </div>
-      <!-- END main tab -->
-      
-      <!-- START practice tab -->
-      <div class="tab-pane" id="tab-practicing" role="tabpanel">
-        <nav class="navbar navbar-dark bg-info">
-          <a class="navbar-brand" href="#">
-            <img src="images/back-icon.png" class="color-inverted"><img>
-          </a>
-        </nav>
-        <div class="container bg-info pt-5 pb-2">
-          <h1 class="display-1">E</h1>
-          <p class="lead">Major Arpeggio</p>
-          <p class="lead">Major Scale</p>
-          <p class="lead">Minor Thirds</p>
-          <p class="lead">Major Thirds</p>
-          <p class="lead">(in progress)</p>
-        </div>
-      </div>
-      <!-- END practice tab -->
-      
-      <!-- START settings tab -->
-      <div class="tab-pane" id="tab-settings" role="tabpanel">
-        <div class="container bg-info pt-5 pb-2">
-          <h1>Settings Page</h1>
-          <p class="lead">(in progress)</p>
-        </div>
-      </div>
-      <!-- END settings tab -->
-      
     </div>
-    <!-- END tabs -->
-  </div>
-  <!-- END main container -->
-  
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
-  <script>
-    $(document).ready(function(){
-      // these are the classes used to toggle the visibility of a tab
-      var classesToToggle = "show active";
-      
-      $("#begin_btn").click(function(e) {
-        // hide home screen tab
-        $("#tab-home").toggleClass( classesToToggle );
+    
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function beginPressed()
+        {
+            $("#home-page-wrapper").addClass("hidden");
+            $("#practicing-page-wrapper").removeClass("hidden");
+        }
         
-        // show practice tab
-        $("#tab-practicing").toggleClass( classesToToggle );      
-      });
-      
-      $("#settings_btn").click(function(e) {
-        // hide home screen tab
-        $("#tab-home").toggleClass( classesToToggle );
-        
-        // show settings tab
-        $("#tab-settings").toggleClass( classesToToggle );
-      });
-    });
-  </script>
-  
+        function endPressed()
+        {
+            $("#practicing-page-wrapper").addClass("hidden");
+            $("#home-page-wrapper").removeClass("hidden");
+        }
+    </script>
 </body>
 </html>
