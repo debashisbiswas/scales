@@ -9,3 +9,9 @@ body {
 .hidden {
   display: none;
 }
+
+/* hide button hover ONLY FOR THE PRIMARY STYLE */
+.btn-primary.custombutton:hover {
+  background-color: #007bff;
+  cursor:default !important;
+}
