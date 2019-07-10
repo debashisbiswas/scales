@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Scales</title>
+    <title>Scales App</title>
     
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,31 +29,35 @@
     <!-- NAV BAR END -->
     
     <main class="container-fluid center-content">
-        <h1>Settings</h1>
-        <div class="row mt-3">
-            <div class="col-md-3">
-                <p class="lead">Keys</p>
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Keys</h3>
+                <p class="lead text-muted" id="key-selection-counter">0/12 selected</p>
                 <div class="container-fluid">
-                    <div class="row text-center">
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">C</button>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">F</button>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">Bb</button>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">Eb</button>
+                    <div class="row">
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">C</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">F</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">Bb</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">Eb</button>
                         <div class="w-100"></div>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">Ab/G#</button>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">Db/C#</button>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">Gb/F#</button>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">B</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">Ab/G#</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">Db/C#</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">Gb/F#</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">B</button>
                         <div class="w-100"></div>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">E</button>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">A</button>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">D</button>
-                        <button type="button" class="col-3 col-md-6 btn btn-primary btn-lg custombutton border rounded-0" data-toggle="button">G</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">E</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">A</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">D</button>
+                        <button type="button" class="col-3 btn btn-primary btn-lg key-selection-button border rounded-0" data-toggle="button">G</button>
+                    </div>
+                    <div class="row">
+                        <button type="button" class="col btn btn-dark btn-lg border rounded-0" id="select-all-button">Select All</button>
+                        <button type="button" class="col btn btn-dark btn-lg border rounded-0" id="unselect-all-button">Unselect All</button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-9 pt-5 pt-md-0">
-                <p class="lead">Exercises</p>
+            <div class="col-lg-6 pt-5 pt-lg-0">
+                <h3>Exercises</h3>
                 <p class="lead text-muted">custom exercises will go here</p>
             </div>
         </div>
@@ -66,10 +70,129 @@
     <script>
         $(document).ready(function()
         {
-            // hide border that appears when clicking a button
-            $( ".btn" ).mouseup(function() {
-                $( this ).blur();
-            })
+            let theKeySettingStorageID = 'key-settings';
+            var theDefaultKeySettings = {
+                "C": true,
+                "F": true,
+                "Bb": true,
+                "Eb": true,
+                "Ab/G#": true,
+                "Db/C#": true,
+                "Gb/F#": true,
+                "B": true,
+                "E": true,
+                "A": true,
+                "D": true,
+                "G": true
+            };
+            
+            var theKeySettings;
+            if( localStorage.getItem( theKeySettingStorageID ) )
+            {
+                theKeySettings = JSON.parse( localStorage.getItem( theKeySettingStorageID ) );
+            }
+            else
+            {
+                theKeySettings = theDefaultKeySettings;
+                localStorage.setItem( theKeySettingStorageID, JSON.stringify( theKeySettings ) );
+            }
+            updateButtonStates();
+            updateKeyCounter();
+
+            // ---------- FUNCTIONS ----------
+
+            // makes the button states consistent with the key settings array
+            function updateButtonStates()
+            {
+                var buttons = $( '.key-selection-button' );
+                for( var i = 0; i < buttons.length; i++ )
+                {
+                    var buttonIsSelected = $( buttons[ i ] ).hasClass( 'active' );
+                    
+                    // if the key is selected in the array
+                    if( theKeySettings[ buttons[ i ].firstChild.nodeValue ] )
+                    {
+                        // if the button is not selected
+                        if( !buttonIsSelected )
+                        {
+                            // then select it
+                            $( buttons[ i ] ).button( 'toggle' );
+                        }
+                    }
+                    else // if the key is not selected in the array
+                    {
+                        // if the button is selected
+                        if( buttonIsSelected )
+                        {
+                            // then unselect it
+                            $( buttons[ i ] ).button( 'toggle' );
+                        }
+                    }
+                }
+            }
+
+            // update a key setting in the array to a new setting
+            // this function updates localStorage with the new value
+            function updateKeySetting( key, newSetting )
+            {
+                theKeySettings[ key ] = newSetting;
+                updateKeyCounter();                
+                localStorage.setItem( theKeySettingStorageID, JSON.stringify( theKeySettings ) );
+            }
+
+            // updates counter that shows user how many key are selected
+            function updateKeyCounter()
+            {
+                var keySelectedCounter = 0;
+                for( var key in theKeySettings )
+                {
+                    if( theKeySettings[ key ] )
+                    {
+                        keySelectedCounter++;
+                    }
+                }
+
+                $( '#key-selection-counter' ).text( keySelectedCounter + "/" + Object.keys( theKeySettings ).length + " selected");
+            }
+
+            //  ---------- EVENT HANDLERS ----------
+            
+            $( '.btn' ).on( 'click', (function() {
+                $( this ).blur(); // remove lingering outline after button click
+            }));
+
+            $( '.key-selection-button' ).on( 'click', (function() {
+                // get the name and new setting for the button that was just pressed
+                var keyName = $( this )[0].firstChild.nodeValue;
+                // if the button is currently active, it is now getting unselected/being set to false
+                var theNewSetting = !( $( this ).hasClass( 'active' ) );
+                
+                updateKeySetting( keyName, theNewSetting );
+            }));
+
+            $( '#select-all-button' ).on( 'click' , (function() {
+                for( var key in theKeySettings )
+                {
+                    if( !theKeySettings[ key ] )
+                    {
+                        updateKeySetting( key, true );
+                    }
+                }
+
+                updateButtonStates();
+            }));
+            
+            $( '#unselect-all-button' ).on( 'click' , (function() {
+                for( var key in theKeySettings )
+                {
+                    if( theKeySettings[ key ] )
+                    {
+                        updateKeySetting( key, false );
+                    }
+                }
+
+                updateButtonStates();
+            }));
         });
     </script>
 </body>
