@@ -11,7 +11,12 @@ body {
 }
 
 /* hide button hover ONLY FOR THE PRIMARY STYLE */
-.btn-primary.key-selection-button:hover {
+.btn-primary.hoverless-button:hover {
   background-color: #007bff;
+  cursor:default !important;
+}
+
+.btn-dark.hoverless-button:hover {
+  background-color: #343A40;
   cursor:default !important;
 }
