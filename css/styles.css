@@ -6,13 +6,17 @@ body {
   text-align: center;
 }
 
-.hidden {
-  display: none;
-}
 
-/* hide button hover ONLY FOR THE PRIMARY STYLE */
-.btn-primary.hoverless-button:hover {
+/* hide button hovers */
+
+/* .btn-primary.hoverless-button:hover {
   background-color: #007bff;
+  cursor:default !important;
+} */
+
+.btn-outline-primary.hoverless-button:hover {
+  color: #007bff;
+  background-color: #fff;
   cursor:default !important;
 }
 

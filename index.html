@@ -33,7 +33,7 @@
         </div>
     </main>
     
-    <div id="practicing-page-wrapper" class="center-content hidden">
+    <div id="practicing-page-wrapper" class="center-content d-none">
         <h1 class="display-4">Eb</h1>
         <p class="text-muted pb-4">
             1/12
@@ -66,14 +66,14 @@
     <script>
         function beginPressed()
         {
-            $("#home-page-wrapper").addClass("hidden");
-            $("#practicing-page-wrapper").removeClass("hidden");
+            $("#home-page-wrapper").addClass("d-none");
+            $("#practicing-page-wrapper").removeClass("d-none");
         }
         
         function endPressed()
         {
-            $("#practicing-page-wrapper").addClass("hidden");
-            $("#home-page-wrapper").removeClass("hidden");
+            $("#practicing-page-wrapper").addClass("d-none");
+            $("#home-page-wrapper").removeClass("d-none");
         }
     </script>
 </body>

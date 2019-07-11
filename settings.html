@@ -31,30 +31,60 @@
                 <p class="lead text-muted" id="key-selection-counter">0/12 selected</p>
                 <div class="container-fluid">
                     <div class="row">
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">C</button>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">F</button>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Bb</button>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Eb</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">C</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">F</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Bb</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Eb</button>
                         <div class="w-100"></div>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Ab/G#</button>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Db/C#</button>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Gb/F#</button>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">B</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Ab/G#</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Db/C#</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Gb/F#</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">B</button>
                         <div class="w-100"></div>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">E</button>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">A</button>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">D</button>
-                        <button type="button" class="col-3 btn btn-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">G</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">E</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">A</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">D</button>
+                        <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">G</button>
                     </div>
                     <div class="row">
-                        <button type="button" class="col btn btn-dark btn-lg border rounded-0 hoverless-button" id="select-all-button">Select All</button>
-                        <button type="button" class="col btn btn-dark btn-lg border rounded-0 hoverless-button" id="unselect-all-button">Unselect All</button>
+                        <button type="button" class="col btn btn-lg border rounded-0 hoverless-button" id="select-all-button">Select All</button>
+                        <button type="button" class="col btn btn-lg border rounded-0 hoverless-button" id="unselect-all-button">Unselect All</button>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 pt-5 pt-lg-0">
                 <h3>Exercises</h3>
-                <p class="lead text-muted">custom exercises will go here</p>
+                <p class="lead text-muted" id="exercise-selection-counter">0/12 selected</p>
+                
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-primary rounded-0 hoverless-button" type="button" data-toggle="button"></button>
+                    </div>
+                    <input type="text" class="form-control" value="Major Scale">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-danger rounded-0">✕</button>
+                    </div>
+                </div>
+                
+                <div class="input-group input-group-lg mt-2">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-primary rounded-0 hoverless-button active" type="button" data-toggle="button"></button>
+                    </div>
+                    <input type="text" class="form-control" value="Natural Minor Scale">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-danger rounded-0">✕</button>
+                    </div>
+                </div>
+                
+                <div class="input-group input-group-lg mt-2">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-primary rounded-0 hoverless-button" type="button" data-toggle="button"></button>
+                    </div>
+                    <input type="text" class="form-control" value="Major Thirds">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-danger rounded-0">✕</button>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -126,7 +156,7 @@
                     }
                 }
             }
-
+            
             // update a key setting in the array to a new setting
             // this function updates localStorage with the new value
             function updateKeySetting( key, newSetting )
@@ -135,7 +165,7 @@
                 updateKeyCounter();                
                 localStorage.setItem( theKeySettingStorageID, JSON.stringify( theKeySettings ) );
             }
-
+            
             // updates counter that shows user how many key are selected
             function updateKeyCounter()
             {
@@ -147,10 +177,10 @@
                         keySelectedCounter++;
                     }
                 }
-
+                
                 $( '#key-selection-counter' ).text( keySelectedCounter + "/" + Object.keys( theKeySettings ).length + " selected");
             }
-
+            
             //  ---------- EVENT HANDLERS ----------
             
             $( '.btn' ).on( 'click', (function() {
