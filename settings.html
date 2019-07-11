@@ -13,17 +13,12 @@
 
 <body>
     <!-- NAV BAR START -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#">Scales App</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" id="nav-tog-icon"></span>
-        </button>
         
-        <div class="collapse navbar-collapse" id="navbars">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="index.html">Home</a>
-                <a class="nav-link nav_link active">Settings</a> <!-- current page -->
-            </div>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" href="index.html">Home</a>
+            <a class="nav-link nav_link active">Settings</a> <!-- current page -->
         </div>
     </nav>
     <!-- NAV BAR END -->
@@ -99,9 +94,9 @@
             }
             updateButtonStates();
             updateKeyCounter();
-
+            
             // ---------- FUNCTIONS ----------
-
+            
             // makes the button states consistent with the key settings array
             function updateButtonStates()
             {
@@ -161,7 +156,7 @@
             $( '.btn' ).on( 'click', (function() {
                 $( this ).blur(); // remove lingering outline after button click
             }));
-
+            
             $( '.key-selection-button' ).on( 'click', (function() {
                 // get the name and new setting for the button that was just pressed
                 var keyName = $( this )[0].firstChild.nodeValue;
@@ -170,7 +165,7 @@
                 
                 updateKeySetting( keyName, theNewSetting );
             }));
-
+            
             $( '#select-all-button' ).on( 'click' , (function() {
                 for( var key in theKeySettings )
                 {
@@ -179,7 +174,7 @@
                         updateKeySetting( key, true );
                     }
                 }
-
+                
                 updateButtonStates();
             }));
             
@@ -191,7 +186,7 @@
                         updateKeySetting( key, false );
                     }
                 }
-
+                
                 updateButtonStates();
             }));
         });
