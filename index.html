@@ -29,7 +29,7 @@
             An app that randomizes fundamental exercises
         </p>
         <div class="container p-5">
-            <button class="btn btn-primary btn-lg" onclick="beginPressed()">Begin</button>
+            <button class="btn btn-primary btn-lg" id="begin-button">Begin</button>
         </div>
     </main>
     
@@ -55,7 +55,7 @@
         </p>        
         <div class="container p-5">
             <!-- TODO: Make this a footer? -->
-            <button class="btn btn-primary btn-lg" onclick="endPressed()">End</button>
+            <button class="btn btn-primary btn-lg" id="end-button">End</button>
         </div>
     </div>
     
@@ -64,17 +64,17 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        function beginPressed()
-        {
-            $("#home-page-wrapper").addClass("d-none");
-            $("#practicing-page-wrapper").removeClass("d-none");
-        }
-        
-        function endPressed()
-        {
-            $("#practicing-page-wrapper").addClass("d-none");
-            $("#home-page-wrapper").removeClass("d-none");
-        }
+        $(document).ready((function(){
+            $( '#begin-button' ).on( 'click' , (function() {
+                $("#home-page-wrapper").addClass("d-none");
+                $("#practicing-page-wrapper").removeClass("d-none");
+            }));
+            
+            $( '#end-button' ).on( 'click' , (function() {
+                $("#practicing-page-wrapper").addClass("d-none");
+                $("#home-page-wrapper").removeClass("d-none");
+            }));
+        }));
     </script>
 </body>
 </html>
