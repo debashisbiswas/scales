@@ -52,39 +52,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 pt-5 pt-lg-0">
+            <div class="col-lg-6 pt-5 pt-lg-0 mb-5">
                 <h3>Exercises</h3>
                 <p class="lead text-muted" id="exercise-selection-counter">0/12 selected</p>
                 
-                <div class="input-group input-group-lg">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-primary rounded-0 hoverless-button" type="button" data-toggle="button"></button>
-                    </div>
-                    <input type="text" class="form-control" value="Major Scale">
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-danger rounded-0">✕</button>
-                    </div>
-                </div>
+                <div id="exercise-setting-container"></div>
                 
-                <div class="input-group input-group-lg mt-2">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-primary rounded-0 hoverless-button active" type="button" data-toggle="button"></button>
-                    </div>
-                    <input type="text" class="form-control" value="Natural Minor Scale">
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-danger rounded-0">✕</button>
-                    </div>
-                </div>
-                
-                <div class="input-group input-group-lg mt-2">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-primary rounded-0 hoverless-button" type="button" data-toggle="button"></button>
-                    </div>
-                    <input type="text" class="form-control" value="Major Thirds">
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-danger rounded-0">✕</button>
-                    </div>
-                </div>
+                <button class="btn border rounded-0 hoverless-button mt-3" id="add-exercise-button">Add</button>
             </div>
         </div>
     </main>
@@ -96,8 +70,9 @@
     <script>
         $(document).ready(function()
         {
-            let theKeySettingStorageID = 'key-settings';
-            var theDefaultKeySettings = {
+            const theKeySettingStorageID = 'key-settings';
+            const theExerciseSettingsStorageID = 'exercise-settings';
+            const theDefaultKeySettings = {
                 "C": true,
                 "F": true,
                 "Bb": true,
@@ -111,7 +86,14 @@
                 "D": true,
                 "G": true
             };
+
+            const theDefaultExerciseSettings = {
+                "Major Scale": false,
+                "Natural Minor Scale": true,
+                "Major Thirds": false
+            };
             
+            // key initialization
             var theKeySettings;
             if( localStorage.getItem( theKeySettingStorageID ) )
             {
@@ -124,7 +106,20 @@
             }
             updateButtonStates();
             updateKeyCounter();
-            
+
+            // exercise initialization
+            var theExerciseSettings;
+            if( localStorage.getItem( theExerciseSettingsStorageID ) )
+            {
+                theExerciseSettings = JSON.parse( localStorage.getItem( theExerciseSettingsStorageID ) );
+            }
+            else
+            {
+                theExerciseSettings = theDefaultExerciseSettings;
+                localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
+            }
+            initExerciseFields();
+
             // ---------- FUNCTIONS ----------
             
             // makes the button states consistent with the key settings array
@@ -178,7 +173,65 @@
                     }
                 }
                 
-                $( '#key-selection-counter' ).text( keySelectedCounter + "/" + Object.keys( theKeySettings ).length + " selected");
+                $( '#key-selection-counter' ).text( generateCounterString( keySelectedCounter, Object.keys( theKeySettings ).length ) );
+            }
+
+            function initExerciseFields()
+            {
+                for( key in theExerciseSettings )
+                {
+                    const theTemplateObject = new ExerciseTemplate( key, theExerciseSettings[ key ] );
+                    var theObject = {};
+                    theObject.exerciseName = key;
+                    theObject.active = theExerciseSettings[ key ];
+
+                    addExerciseField( theObject );
+                }
+            }
+
+            function generateCounterString( selected, total )
+            {
+                return `${ selected }/${ total } selected`;
+            }
+
+            function ExerciseTemplate( exerciseName, active )
+            {
+                this.exerciseName = exerciseName;
+                this.active = active;
+            }
+            
+            function generateExerciseSetting( exerciseTemplateObject )
+            {
+                return `
+                <div class="input-group input-group-lg mt-2">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-primary rounded-0 hoverless-button ${ exerciseTemplateObject.active ? 'active' : '' }" type="button" data-toggle="button"></button>
+                    </div>
+                    <input type="text" class="form-control" value="${ exerciseTemplateObject.exerciseName != undefined ? exerciseTemplateObject.exerciseName : '' }">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-danger rounded-0">✕</button>
+                    </div>
+                </div>`;
+            }
+
+            function generateUniqueExerciseId()
+            {
+                return 'exercise-' + Math.random().toString(36).substr(2, 16);
+            }
+
+            // use this when the field is stored in the exerciseSettings object/localStorage and we just need to update the UI
+            function addExerciseField( exerciseTemplateObject )
+            {
+                $( '#exercise-setting-container' ).append( generateExerciseSetting( exerciseTemplateObject ) );
+            }
+
+            // use this to add entirely new exercises - this adds to exerciseSettings object, localStorage, and UI
+            function addExerciseSetting( exerciseTemplateObject )
+            {
+                theExerciseSettings[ exerciseTemplateObject.exerciseName ] = exerciseTemplateObject.active;
+                localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
+
+                addExerciseField( exerciseTemplateObject );
             }
             
             //  ---------- EVENT HANDLERS ----------
@@ -218,6 +271,11 @@
                 }
                 
                 updateButtonStates();
+            }));
+            
+            $( '#add-exercise-button' ).on( 'click' , (function() {
+                var theTemplateObject = new ExerciseTemplate( "", true );
+                addExerciseSetting( theTemplateObject );
             }));
         });
     </script>
