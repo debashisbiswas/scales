@@ -56,7 +56,7 @@
                 <h3>Exercises</h3>
                 <p class="lead text-muted" id="exercise-selection-counter">0/12 selected</p>
                 
-                <div id="exercise-setting-container"></div>
+                <div id="setting-exercise-container"></div>
                 
                 <button class="btn border rounded-0 hoverless-button mt-3" id="add-exercise-button">Add</button>
             </div>
@@ -72,6 +72,7 @@
         {
             const theKeySettingStorageID = 'key-settings';
             const theExerciseSettingsStorageID = 'exercise-settings';
+            const theExerciseIdPrefix = 'exercise-'
             const theDefaultKeySettings = {
                 "C": true,
                 "F": true,
@@ -85,12 +86,6 @@
                 "A": true,
                 "D": true,
                 "G": true
-            };
-
-            const theDefaultExerciseSettings = {
-                "Major Scale": false,
-                "Natural Minor Scale": true,
-                "Major Thirds": false
             };
             
             // key initialization
@@ -106,20 +101,25 @@
             }
             updateButtonStates();
             updateKeyCounter();
-
+            
             // exercise initialization
-            var theExerciseSettings;
+            var theExerciseSettings = {};
             if( localStorage.getItem( theExerciseSettingsStorageID ) )
             {
                 theExerciseSettings = JSON.parse( localStorage.getItem( theExerciseSettingsStorageID ) );
             }
             else
             {
-                theExerciseSettings = theDefaultExerciseSettings;
+                // push default exercise settings here
+                theExerciseSettings[ generateUniqueExerciseId() ] = { "Major Scale": false };
+                theExerciseSettings[ generateUniqueExerciseId() ] = { "Minor Arpeggio": true };
+                theExerciseSettings[ generateUniqueExerciseId() ] = { "Major Thirds": false };
                 localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
             }
             initExerciseFields();
-
+            
+            console.log( theExerciseSettings );
+            
             // ---------- FUNCTIONS ----------
             
             // makes the button states consistent with the key settings array
@@ -165,7 +165,7 @@
             function updateKeyCounter()
             {
                 var keySelectedCounter = 0;
-                for( var key in theKeySettings )
+                for( key in theKeySettings )
                 {
                     if( theKeySettings[ key ] )
                     {
@@ -175,37 +175,52 @@
                 
                 $( '#key-selection-counter' ).text( generateCounterString( keySelectedCounter, Object.keys( theKeySettings ).length ) );
             }
-
-            function initExerciseFields()
-            {
-                for( key in theExerciseSettings )
-                {
-                    const theTemplateObject = new ExerciseTemplate( key, theExerciseSettings[ key ] );
-                    var theObject = {};
-                    theObject.exerciseName = key;
-                    theObject.active = theExerciseSettings[ key ];
-
-                    addExerciseField( theObject );
-                }
-            }
-
+            
             function generateCounterString( selected, total )
             {
                 return `${ selected }/${ total } selected`;
             }
-
-            function ExerciseTemplate( exerciseName, active )
+            
+            function ExerciseTemplate( id, exerciseName, active )
             {
+                this.id = id;
                 this.exerciseName = exerciseName;
                 this.active = active;
+            }
+            
+            function initExerciseFields()
+            {
+                for( id in theExerciseSettings )
+                {
+                    const theExerciseName = dereferenceExerciseId( id );
+                    const theTemplateObject = new ExerciseTemplate( id, theExerciseName, theExerciseSettings[ id ][ theExerciseName ] );
+                    showExerciseField( theTemplateObject );
+                }
+                
+                updateExerciseCounter();
+            }
+            
+            function updateExerciseCounter()
+            {
+                var exerciseSelectedCounter = 0;
+                for( id in theExerciseSettings )
+                {
+                    const theExerciseName = dereferenceExerciseId( id );
+                    if( theExerciseSettings[ id ][ theExerciseName ] )
+                    {
+                        exerciseSelectedCounter++;
+                    }
+                }
+                
+                $( '#exercise-selection-counter' ).text( generateCounterString( exerciseSelectedCounter, Object.keys( theExerciseSettings ).length ) );
             }
             
             function generateExerciseSetting( exerciseTemplateObject )
             {
                 return `
-                <div class="input-group input-group-lg mt-2">
+                <div class="input-group input-group-lg mt-2" id="${ exerciseTemplateObject.id }">
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-primary rounded-0 hoverless-button ${ exerciseTemplateObject.active ? 'active' : '' }" type="button" data-toggle="button"></button>
+                        <button class="btn btn-outline-primary rounded-0 hoverless-button exercise-selection-button ${ exerciseTemplateObject.active ? 'active' : '' }" type="button" data-toggle="button"></button>
                     </div>
                     <input type="text" class="form-control" value="${ exerciseTemplateObject.exerciseName != undefined ? exerciseTemplateObject.exerciseName : '' }">
                     <div class="input-group-append">
@@ -213,25 +228,48 @@
                     </div>
                 </div>`;
             }
-
+            
             function generateUniqueExerciseId()
             {
-                return 'exercise-' + Math.random().toString(36).substr(2, 16);
+                return theExerciseIdPrefix + Math.random().toString(36).substr(2, 16);
             }
-
+            
             // use this when the field is stored in the exerciseSettings object/localStorage and we just need to update the UI
-            function addExerciseField( exerciseTemplateObject )
+            function showExerciseField( exerciseTemplateObject )
             {
-                $( '#exercise-setting-container' ).append( generateExerciseSetting( exerciseTemplateObject ) );
+                $( '#setting-exercise-container' ).append( generateExerciseSetting( exerciseTemplateObject ) );
+                updateExerciseCounter();
             }
-
+            
             // use this to add entirely new exercises - this adds to exerciseSettings object, localStorage, and UI
             function addExerciseSetting( exerciseTemplateObject )
             {
-                theExerciseSettings[ exerciseTemplateObject.exerciseName ] = exerciseTemplateObject.active;
+                const newObject = {};
+                newObject[ exerciseTemplateObject.exerciseName ] = exerciseTemplateObject.active;
+                
+                theExerciseSettings[ exerciseTemplateObject.id ] = newObject;
                 localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
+                
+                showExerciseField( exerciseTemplateObject );
+            }
 
-                addExerciseField( exerciseTemplateObject );
+            function updateExerciseName( id, newName ) 
+            {
+
+            }
+
+            function updateExerciseSelectionStatus( id, newStatus )
+            {
+                const exerciseName = dereferenceExerciseId( id );
+                theExerciseSettings[ id ][ exerciseName ] = newStatus;
+                localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
+                updateExerciseCounter();
+            }
+
+            // returns name of exercise in object based on id, useful for accessing properties in the object
+            function dereferenceExerciseId( id )
+            {
+                return Object.keys( theExerciseSettings[ id ] )[ 0 ];
             }
             
             //  ---------- EVENT HANDLERS ----------
@@ -273,8 +311,17 @@
                 updateButtonStates();
             }));
             
+            $( '.exercise-selection-button' ).on( 'click' , (function() {
+                // get the id of the exercising using parent classes
+                var id = $( this ).parents( `div[id^='${ theExerciseIdPrefix }']`)[ 0 ].id;
+                // if the button is currently active, it is now getting unselected/being set to false
+                var theNewSetting = !( $( this ).hasClass( 'active' ) );
+                
+                updateExerciseSelectionStatus( id, theNewSetting );
+            }));
+            
             $( '#add-exercise-button' ).on( 'click' , (function() {
-                var theTemplateObject = new ExerciseTemplate( "", true );
+                var theTemplateObject = new ExerciseTemplate( generateUniqueExerciseId(), "", true );
                 addExerciseSetting( theTemplateObject );
             }));
         });
