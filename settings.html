@@ -117,9 +117,7 @@
                 localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
             }
             initExerciseFields();
-            
-            console.log( theExerciseSettings );
-            
+                        
             // ---------- FUNCTIONS ----------
             
             // makes the button states consistent with the key settings array
@@ -224,7 +222,7 @@
                     </div>
                     <input type="text" class="form-control" value="${ exerciseTemplateObject.exerciseName != undefined ? exerciseTemplateObject.exerciseName : '' }">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-danger rounded-0">✕</button>
+                        <button type="button" class="btn btn-outline-danger rounded-0 exercise-delete-button">✕</button>
                     </div>
                 </div>`;
             }
@@ -264,6 +262,15 @@
                 theExerciseSettings[ id ][ exerciseName ] = newStatus;
                 localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
                 updateExerciseCounter();
+            }
+
+            function deleteExercise( id )
+            {
+                $( `#${ id }` ).remove();
+                delete theExerciseSettings[ id ];
+                console.log( theExerciseSettings );
+                localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
+                updateExerciseCounter();                
             }
 
             // returns name of exercise in object based on id, useful for accessing properties in the object
@@ -318,6 +325,14 @@
                 var theNewSetting = !( $( this ).hasClass( 'active' ) );
                 
                 updateExerciseSelectionStatus( id, theNewSetting );
+            }));
+
+            $( '.exercise-delete-button' ).on( 'click', (function()
+            {
+                // get the id of the exercising using parent classes
+                var id = $( this ).parents( `div[id^='${ theExerciseIdPrefix }']`)[ 0 ].id;
+
+                deleteExercise( id );
             }));
             
             $( '#add-exercise-button' ).on( 'click' , (function() {
