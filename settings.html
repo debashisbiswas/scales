@@ -220,7 +220,7 @@
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-primary rounded-0 hoverless-button exercise-selection-button ${ exerciseTemplateObject.active ? 'active' : '' }" type="button" data-toggle="button"></button>
                     </div>
-                    <input type="text" class="form-control" value="${ exerciseTemplateObject.exerciseName != undefined ? exerciseTemplateObject.exerciseName : '' }">
+                    <input type="text" class="form-control exercise-name-field" value="${ exerciseTemplateObject.exerciseName != undefined ? exerciseTemplateObject.exerciseName : '' }">
                     <div class="input-group-append">
                         <button type="button" class="btn btn-outline-danger rounded-0 exercise-delete-button">✕</button>
                     </div>
@@ -253,7 +253,11 @@
 
             function updateExerciseName( id, newName ) 
             {
-
+                const currentExerciseName = dereferenceExerciseId( id );
+                const currentStatus = theExerciseSettings[ id ][ currentExerciseName ];
+                delete theExerciseSettings[ id ][ currentExerciseName ];
+                theExerciseSettings[ id ][ newName ] = currentStatus;
+                localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
             }
 
             function updateExerciseSelectionStatus( id, newStatus )
@@ -271,6 +275,12 @@
                 console.log( theExerciseSettings );
                 localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
                 updateExerciseCounter();                
+            }
+
+            // get the id of the exercise using parent class id
+            function getExerciseParentId( element )
+            {
+                return $( element ).parents( `div[id^='${ theExerciseIdPrefix }']` )[ 0 ].id;
             }
 
             // returns name of exercise in object based on id, useful for accessing properties in the object
@@ -317,28 +327,34 @@
                 
                 updateButtonStates();
             }));
-            
-            $( '.exercise-selection-button' ).on( 'click' , (function() {
-                // get the id of the exercising using parent classes
-                var id = $( this ).parents( `div[id^='${ theExerciseIdPrefix }']`)[ 0 ].id;
-                // if the button is currently active, it is now getting unselected/being set to false
-                var theNewSetting = !( $( this ).hasClass( 'active' ) );
-                
-                updateExerciseSelectionStatus( id, theNewSetting );
-            }));
 
-            $( '.exercise-delete-button' ).on( 'click', (function()
-            {
-                // get the id of the exercising using parent classes
-                var id = $( this ).parents( `div[id^='${ theExerciseIdPrefix }']`)[ 0 ].id;
-
-                deleteExercise( id );
-            }));
-            
-            $( '#add-exercise-button' ).on( 'click' , (function() {
+            $( '#add-exercise-button' ).on( 'click', (function() {
                 var theTemplateObject = new ExerciseTemplate( generateUniqueExerciseId(), "", true );
                 addExerciseSetting( theTemplateObject );
             }));
+            
+            $( document ).on( 'click', '.exercise-selection-button', (function() {
+                var id = getExerciseParentId( this );
+
+                // the new setting corresponds to whether or not the active class exists
+                // using document.on gives a different result here than selector.on
+                var theNewSetting = ( $( this ).hasClass( 'active' ) );
+                
+                updateExerciseSelectionStatus( id, theNewSetting );
+                console.log( "handler called" );
+            }));
+
+            $( document ).on( 'input', '.exercise-name-field', (function() {
+                var id = getExerciseParentId( this );
+                updateExerciseName( id, $( this ).val() );
+            }));
+
+            $( document ).on( 'click', '.exercise-delete-button', (function()
+            {
+                var id = getExerciseParentId( this );
+                deleteExercise( id );
+            }));
+            
         });
     </script>
 </body>
