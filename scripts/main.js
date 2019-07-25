@@ -32,8 +32,7 @@ $( '#begin-button' ).on( 'click' , (function() {
         randomizedExercises = shuffle( randomizedExercises );    
         $( '#carousel-output-container' ).append( generateKeyHTML( currentKeyCount, randomizedKeys.length, theKey, randomizedExercises ) );
     }
-    
-    $( '#main-carousel' ).carousel();
+
     hideCarouselEnds();
 }));
 
