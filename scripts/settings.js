@@ -103,13 +103,13 @@ function generateExerciseSetting( exerciseTemplateObject )
 {
     return `
     <div class="input-group input-group-lg mt-2" id="${ exerciseTemplateObject.id }">
-    <div class="input-group-prepend">
-    <button class="btn btn-outline-primary rounded-0 hoverless-button exercise-selection-button ${ exerciseTemplateObject.active ? 'active' : '' }" type="button" data-toggle="button"></button>
-    </div>
-    <input type="text" class="form-control exercise-name-field" value="${ exerciseTemplateObject.exerciseName != undefined ? exerciseTemplateObject.exerciseName : '' }">
-    <div class="input-group-append">
-    <button type="button" class="btn btn-outline-danger rounded-0 exercise-delete-button">✕</button>
-    </div>
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-primary rounded-0 hoverless-button exercise-selection-button ${ exerciseTemplateObject.active ? 'active' : '' }" type="button" data-toggle="button"></button>
+        </div>
+        <input type="text" class="form-control exercise-name-field" value="${ exerciseTemplateObject.exerciseName != undefined ? exerciseTemplateObject.exerciseName : '' }">
+        <div class="input-group-append">
+            <button type="button" class="btn btn-outline-danger rounded-0 exercise-delete-button">✕</button>
+        </div>
     </div>`;
 }
 
