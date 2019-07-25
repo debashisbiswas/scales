@@ -164,12 +164,6 @@ function getExerciseParentId( element )
     return $( element ).parents( `div[id^='${ theExerciseIdPrefix }']` )[ 0 ].id;
 }
 
-// returns name of exercise in object based on id, useful for accessing properties in the object
-function dereferenceExerciseId( id )
-{
-    return Object.keys( theExerciseSettings[ id ] )[ 0 ];
-}
-
 //  ---------- EVENT HANDLERS ----------
 
 $( '.btn' ).on( 'click', (function() {
@@ -222,7 +216,6 @@ $( document ).on( 'click', '.exercise-selection-button', (function() {
     var theNewSetting = ( $( this ).hasClass( 'active' ) );
     
     updateExerciseSelectionStatus( id, theNewSetting );
-    console.log( "handler called" );
 }));
 
 $( document ).on( 'input', '.exercise-name-field', (function() {

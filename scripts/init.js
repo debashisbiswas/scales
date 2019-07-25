@@ -37,13 +37,24 @@ if( localStorage.getItem( theExerciseSettingsStorageID ) )
 else
 {
     // push default exercise settings here
-    theExerciseSettings[ generateUniqueExerciseId() ] = { "Major Scale": false };
+    theExerciseSettings[ generateUniqueExerciseId() ] = { "Major Scale": true };
+    theExerciseSettings[ generateUniqueExerciseId() ] = { "Natural Minor Scale": true };
+    theExerciseSettings[ generateUniqueExerciseId() ] = { "Harmonic Minor Scale": true };
+    theExerciseSettings[ generateUniqueExerciseId() ] = { "Melodic Minor Scale": true };
+    theExerciseSettings[ generateUniqueExerciseId() ] = { "Major Arpeggio": true };
     theExerciseSettings[ generateUniqueExerciseId() ] = { "Minor Arpeggio": true };
-    theExerciseSettings[ generateUniqueExerciseId() ] = { "Major Thirds": false };
+    theExerciseSettings[ generateUniqueExerciseId() ] = { "Major Thirds": true };
+    theExerciseSettings[ generateUniqueExerciseId() ] = { "Minor Thirds": true };
     localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
 }
 
 function generateUniqueExerciseId()
 {
     return theExerciseIdPrefix + Math.random().toString(36).substr(2, 16);
+}
+
+// returns name of exercise in object based on id, useful for accessing properties in the object
+function dereferenceExerciseId( id )
+{
+    return Object.keys( theExerciseSettings[ id ] )[ 0 ];
 }
