@@ -153,7 +153,6 @@ function deleteExercise( id )
 {
     $( `#${ id }` ).remove();
     delete theExerciseSettings[ id ];
-    console.log( theExerciseSettings );
     localStorage.setItem( theExerciseSettingsStorageID, JSON.stringify( theExerciseSettings ) );
     updateExerciseCounter();                
 }
