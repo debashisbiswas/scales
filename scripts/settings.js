@@ -108,7 +108,7 @@ function generateExerciseSetting( exerciseTemplateObject )
         </div>
         <input type="text" class="form-control exercise-name-field" value="${ exerciseTemplateObject.exerciseName != undefined ? exerciseTemplateObject.exerciseName : '' }">
         <div class="input-group-append">
-            <button type="button" class="btn btn-outline-danger rounded-0 exercise-delete-button">✕</button>
+            <button type="button" class="btn btn-outline-danger hoverless-button rounded-0 exercise-delete-button">✕</button>
         </div>
     </div>`;
 }

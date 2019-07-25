@@ -17,12 +17,15 @@ body {
 .btn-outline-primary.hoverless-button:hover {
   color: #007bff;
   background-color: #fff;
-  cursor:default !important;
 }
 
 .btn-dark.hoverless-button:hover {
   background-color: #343A40;
-  cursor:default !important;
+}
+
+.btn-outline-danger.hoverless-button:hover {
+  color: #dc3545;
+  background-color: #fff;
 }
 
 /* make carousel controls black for visibility */
