@@ -33,7 +33,7 @@ $( '#begin-button' ).on( 'click' , (function() {
         $( '#carousel-output-container' ).append( generateKeyHTML( currentKeyCount, randomizedKeys.length, theKey, randomizedExercises ) );
     }
 
-    hideCarouselEnds();
+    updateCarouselArrowVisibility();
 }));
 
 $( '#end-button' ).on( 'click' , (function() {
@@ -44,21 +44,19 @@ $( '#end-button' ).on( 'click' , (function() {
 }));
 
 $( '#main-carousel' ).on( 'slid.bs.carousel' , '', (function() {
-    var $this = $( this );
-    
-    $this.children( '.carousel-control-prev' ).show();
-    $this.children( '.carousel-control-next' ).show();
-
-    hideCarouselEnds();
+    updateCarouselArrowVisibility();
 }));
 
-function hideCarouselEnds()
+function updateCarouselArrowVisibility()
 {
+    $( '#main-carousel' ).children( '.carousel-control-prev' ).show();
+    $( '#main-carousel' ).children( '.carousel-control-next' ).show();
+
     if( $( '.carousel-inner' ).children().first().hasClass( 'active' ) )
     {
         $( '#main-carousel' ).children( '.carousel-control-prev' ).hide();
     }
-    else if( $( '.carousel-inner' ).children().last().hasClass( 'active' ) )
+    if( $( '.carousel-inner' ).children().last().hasClass( 'active' ) )
     {
         $( '#main-carousel' ).children( '.carousel-control-next' ).hide();
     }
