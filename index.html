@@ -8,6 +8,7 @@
     
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/flexslider/css/flexslider.css" type="text/css" media="screen" />
     <link href="css/styles.css" rel="stylesheet">
 </head>
 
@@ -33,20 +34,11 @@
         </div>
     </main>
     
-    <div id="practicing-page-wrapper" class="center-content d-none">
-        <div id="main-carousel" class="carousel slide" data-interval="false" data-wrap="false" data-touch="false">
-            <div id="carousel-output-container" class="carousel-inner">
-            </div>
-            <a class="carousel-control-prev" href="#main-carousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#main-carousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+    <div id="practicing-page-wrapper" class="container center-content d-none">
+        <div class="flexslider">
+            <ul id="flexslider-output-container" class="slides"></ul>
         </div>
-        <div class="container p-5">
+        <div class="container p-4">
             <!-- TODO: Make this a footer? -->
             <button class="btn btn-primary btn-lg" id="end-button">End</button>
         </div>
@@ -55,6 +47,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/flexslider/js/jquery.flexslider-min.js" type="text/javascript" defer ></script>
     
     <script src="scripts/init.js"></script>
     <script src="scripts/main.js"></script>

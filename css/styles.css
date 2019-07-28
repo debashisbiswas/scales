@@ -27,9 +27,3 @@ body {
   color: #dc3545;
   background-color: #fff;
 }
-
-/* make carousel controls black for visibility */
-.carousel-control-next,
-.carousel-control-prev {
-  filter: invert( 100% );
-}

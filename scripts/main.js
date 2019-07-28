@@ -1,5 +1,7 @@
 // must first include init.js
 
+var slider = $( '.flexslider' );
+
 $( '#begin-button' ).on( 'click' , (function() {
     $( "#home-page-wrapper" ).addClass( "d-none" );
     $( "#practicing-page-wrapper" ).removeClass( "d-none" );
@@ -29,60 +31,54 @@ $( '#begin-button' ).on( 'click' , (function() {
     {
         const theKey = randomizedKeys[ index ];
         currentKeyCount = parseInt( index ) + 1;
-        randomizedExercises = shuffle( randomizedExercises );    
-        $( '#carousel-output-container' ).append( generateKeyHTML( currentKeyCount, randomizedKeys.length, theKey, randomizedExercises ) );
+        randomizedExercises = shuffle( randomizedExercises );
+        $( '#flexslider-output-container' ).append( generateKeyHTML( currentKeyCount, randomizedKeys.length, theKey, randomizedExercises ) );
     }
-
-    updateCarouselArrowVisibility();
+    
+    // options: https://gist.github.com/warrendholmes/9481310
+    $( '.flexslider' ).flexslider({
+        animation: "slide",
+        slideshow: false,
+        touch: true,
+    });
 }));
 
 $( '#end-button' ).on( 'click' , (function() {
+    while (slider.data( 'flexslider' ).count > 0)
+    {
+        slider.data( 'flexslider' ).removeSlide( 0 );
+    }
+    
+    $( '.flexslider').removeData( "flexslider" );
+    $( '#flexslider-output-container' ).empty();
+    
     $( "#practicing-page-wrapper" ).addClass( "d-none" );
     $( "#home-page-wrapper" ).removeClass( "d-none" );
-    
-    $( '#carousel-output-container' ).empty();
 }));
-
-$( '#main-carousel' ).on( 'slid.bs.carousel' , '', (function() {
-    updateCarouselArrowVisibility();
-}));
-
-function updateCarouselArrowVisibility()
-{
-    $( '#main-carousel' ).children( '.carousel-control-prev' ).show();
-    $( '#main-carousel' ).children( '.carousel-control-next' ).show();
-
-    if( $( '.carousel-inner' ).children().first().hasClass( 'active' ) )
-    {
-        $( '#main-carousel' ).children( '.carousel-control-prev' ).hide();
-    }
-    if( $( '.carousel-inner' ).children().last().hasClass( 'active' ) )
-    {
-        $( '#main-carousel' ).children( '.carousel-control-next' ).hide();
-    }
-}
 
 function generateKeyHTML( currentKeyCount, totalKeyCount, keyName, exerciseArray )
 {
-    var isFirstElement = ( currentKeyCount == 1 );
+    const isFirstElement = ( currentKeyCount == 1 );
+    const isLastElement = ( currentKeyCount == totalKeyCount );
     
-    // opening div tag
-    var theOutput = `<div class="carousel-item ${ isFirstElement ? 'active' : '' }">`
-
+    // opening tag
+    var theOutput = `<li class="pb-3">`
+    
     // header with key name
     theOutput += `<h1 class="display-4">${ keyName }</h1>`
-
+    
     // current key count
     theOutput += `<p class="text-muted">${ currentKeyCount }/${ totalKeyCount }</p>`;
     
+    // show all exercises
     for( index in exerciseArray )
     {
         const theExercise = exerciseArray[ index ];
         theOutput += `<p class="lead">${ theExercise }</p>`;
     }
     
-    // closing div tag
-    theOutput += `</div>`;
+    // closing tag
+    theOutput += `</li>`;
     
     return theOutput;
 }
