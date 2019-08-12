@@ -13,24 +13,56 @@
 </head>
 
 <body>
-    <!-- NAV BAR START -->
-    <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="#">Scales App</a>
-        
-        <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link active">Home</a> <!-- current page -->
-            <a class="nav-link nav_link" href="settings.html">Settings</a>
-        </div>
-    </nav>
-    <!-- NAV BAR END -->
-    
     <main id="home-page-wrapper" class="container-fluid center-content">
-        <h1>Scales App</h1>
+        <h1 class="display-4">Scales App</h1>
         <p class="lead">
             An app that randomizes fundamental exercises
         </p>
-        <div class="container p-5">
-            <button class="btn btn-primary btn-lg" id="begin-button">Begin</button>
+        <div class="container col-xs-8 col-md-6 col-lg-4 py-4">
+            <button class="btn btn-primary btn-lg btn-block rounded-0" id="begin-button">Begin Simple Mode</button>
+            <button class="btn btn-primary btn-lg btn-block rounded-0" id="begin-button">Begin Full Mode</button>
+        </div>
+
+        <hr/>
+
+        <div class="container-fluid center-content">
+            <h1>Settings</h1>
+            <div class="row pt-3">
+                <div class="col-lg-6">
+                    <h3>Keys</h3>
+                    <p class="lead text-muted" id="key-selection-counter">0/12 selected</p>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">C</button>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">F</button>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Bb</button>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Eb</button>
+                            <div class="w-100"></div>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Ab/G#</button>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Db/C#</button>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">Gb/F#</button>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">B</button>
+                            <div class="w-100"></div>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">E</button>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">A</button>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">D</button>
+                            <button type="button" class="col-3 btn btn-outline-primary btn-lg border rounded-0 hoverless-button key-selection-button" data-toggle="button">G</button>
+                        </div>
+                        <div class="row mt-3">
+                            <button type="button" class="col btn btn-lg border rounded-0 hoverless-button mx-2" id="select-all-button">Select All</button>
+                            <button type="button" class="col btn btn-lg border rounded-0 hoverless-button mx-2" id="unselect-all-button">Unselect All</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 pt-5 pt-lg-0 mb-5">
+                    <h3>Exercises</h3>
+                    <p class="lead text-muted" id="exercise-selection-counter">0/12 selected</p>
+                    
+                    <div id="setting-exercise-container"></div>
+                    
+                    <button class="btn btn-lg border rounded-0 mt-3" id="add-exercise-button">Add Exercise</button>
+                </div>
+            </div>
         </div>
     </main>
     
@@ -51,5 +83,6 @@
     
     <script src="scripts/init.js"></script>
     <script src="scripts/main.js"></script>
+    <script src="scripts/settings.js"></script>
 </body>
 </html>
