@@ -2,11 +2,15 @@
 
 var slider = $( '.flexslider' );
 
-$( '#begin-button' ).on( 'click' , (function() {
+// selector for ids that begin with this string
+$( '[id^=begin-button]' ).on( 'click' , (function() {
     $( "#home-page-wrapper" ).addClass( "d-none" );
     $( "#practicing-page-wrapper" ).removeClass( "d-none" );
     
     var randomizedKeys = [];
+    var randomizedExercises = [];
+
+    // randomize keys based on settings
     for( key in theKeySettings )
     {
         if( theKeySettings[ key ] )
@@ -15,24 +19,27 @@ $( '#begin-button' ).on( 'click' , (function() {
         }
     }
     randomizedKeys = shuffle( randomizedKeys );
-    
-    var randomizedExercises = [];
-    for( id in theExerciseSettings )
+
+    if( this.id == 'begin-button-fullmode' )
     {
-        const exercise = dereferenceExerciseId( id );
-        if( theExerciseSettings[ id ][ exercise ] )
+        // randomize exercises based on settings
+        for( id in theExerciseSettings )
         {
-            randomizedExercises.push( exercise );
+            const exercise = dereferenceExerciseId( id );
+            if( theExerciseSettings[ id ][ exercise ] )
+            {
+                randomizedExercises.push( exercise );
+            }
         }
+        randomizedExercises = shuffle( randomizedExercises );
     }
-    randomizedExercises = shuffle( randomizedExercises );
-    
+
     for( index in randomizedKeys )
     {
         const theKey = randomizedKeys[ index ];
         currentKeyCount = parseInt( index ) + 1;
         randomizedExercises = shuffle( randomizedExercises );
-        $( '#flexslider-output-container' ).append( generateKeyHTML( currentKeyCount, randomizedKeys.length, theKey, randomizedExercises ) );
+        $( '#flexslider-output-container' ).append( generatePracticeHTML( currentKeyCount, randomizedKeys.length, theKey, randomizedExercises ) );
     }
     
     // options: https://gist.github.com/warrendholmes/9481310
@@ -44,28 +51,36 @@ $( '#begin-button' ).on( 'click' , (function() {
 }));
 
 $( '#end-button' ).on( 'click' , (function() {
-    while (slider.data( 'flexslider' ).count > 0)
+    // clear flexslider HTML
+    if( typeof slider.data( 'flexslider' ) !== "undefined" )
     {
-        slider.data( 'flexslider' ).removeSlide( 0 );
+        while( slider.data( 'flexslider' ).count > 0 )
+        {
+            slider.data( 'flexslider' ).removeSlide( 0 );
+        }
+
+        $( '.flexslider').removeData( "flexslider" );
+        $( '#flexslider-output-container' ).empty();
     }
-    
-    $( '.flexslider').removeData( "flexslider" );
-    $( '#flexslider-output-container' ).empty();
+
+    // clear simple mode HTML
+    $( '#onepage-key-container' ).empty();
     
     $( "#practicing-page-wrapper" ).addClass( "d-none" );
     $( "#home-page-wrapper" ).removeClass( "d-none" );
 }));
 
-function generateKeyHTML( currentKeyCount, totalKeyCount, keyName, exerciseArray )
+// with exercises
+function generatePracticeHTML( currentKeyCount, totalKeyCount, keyName, exerciseArray )
 {
     const isFirstElement = ( currentKeyCount == 1 );
     const isLastElement = ( currentKeyCount == totalKeyCount );
     
     // opening tag
-    var theOutput = `<li class="pb-3">`
+    var theOutput = `<li class="pb-3">`;
     
     // header with key name
-    theOutput += `<h1 class="display-4">${ keyName }</h1>`
+    theOutput += `<h1 class="display-4">${ keyName }</h1>`;
     
     // current key count
     theOutput += `<p class="text-muted">${ currentKeyCount }/${ totalKeyCount }</p>`;
@@ -91,14 +106,13 @@ function shuffle( array )
     // while there remain elements to shuffle...
     while( m )
     {
-        
         // pick a remaining element
-        i = Math.floor(Math.random() * m--);
+        i = Math.floor( Math.random() * m-- );
         
         // swap it with the current element
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;
+        t = array[ m ];
+        array[ m ] = array[ i ];
+        array[ i ] = t;
     }
     
     return array;

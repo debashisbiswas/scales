@@ -16,11 +16,21 @@
     <main id="home-page-wrapper" class="container-fluid center-content">
         <h1 class="display-4">Scales App</h1>
         <p class="lead">
-            An app that randomizes fundamental exercises
+            Enhance music practice through randomization
         </p>
-        <div class="container col-xs-8 col-md-6 col-lg-4 py-4">
-            <button class="btn btn-primary btn-lg btn-block rounded-0" id="begin-button">Begin Simple Mode</button>
-            <button class="btn btn-primary btn-lg btn-block rounded-0" id="begin-button">Begin Full Mode</button>
+        <div class="container col-xs-8 col-md-6 col-lg-4 py-3">
+            <div class="container-fluid">
+                <button class="btn btn-primary btn-lg btn-block rounded-0" id="begin-button-simplemode">Simple Mode</button>
+                <p class="lead font-italic text-muted pt-2">
+                    Randomize keys only
+                </p>
+            </div>
+            <div class="container-fluid pt-2">
+                <button class="btn btn-primary btn-lg btn-block rounded-0" id="begin-button-fullmode">Full Mode</button>
+                <p class="lead font-italic text-muted pt-2">
+                    Randomize keys with exercises
+                </p>
+            </div>
         </div>
 
         <hr/>
@@ -67,6 +77,7 @@
     </main>
     
     <div id="practicing-page-wrapper" class="container center-content d-none">
+        <div id="onepage-key-container"></div>
         <div class="flexslider">
             <ul id="flexslider-output-container" class="slides"></ul>
         </div>
