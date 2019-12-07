@@ -34,14 +34,55 @@
             <p class="lead">
                 Enhance music practice through randomization
             </p>
-            <div class="mx-auto col-xs-8 col-md-6 col-lg-4 py-3">
-                <p class="lead font-italic">
-                    Randomize...
-                </p>
-                <button class="btn btn-primary btn-lg btn-block rounded-0" id="begin-button-simplemode">Keys Only</button>
-                <button class="btn btn-primary btn-lg btn-block rounded-0" id="begin-button-fullmode">Keys and Exercises</button>
-            </div>
-            <hr/>
+            <div class="row">
+                <div class="mx-auto col col-md-8 col-lg-6 col-xl-4 py-4">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-lg btn-dark btn-block" data-toggle="modal" data-target="#aboutModal">
+                        About
+                    </button>
+                    <button class="btn btn-primary btn-lg btn-block" id="begin-button-simplemode">
+                        Scramble Keys
+                    </button>
+                    <button class="btn btn-primary btn-lg btn-block" id="begin-button-fullmode">
+                        Scramble Keys and Exercises
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="aboutModalLabel">About</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5>Welcome to the <b>Scale Scrambler!</b></h5>
+                                    <p>
+                                        This application allows musicians to use randomization to supplement fundamentals, improving technical consistency and flexibility.
+                                    </p>
+                                    <p>
+                                        To get started, choose the keys and exercises you would like to work on. Exercises will be randomized within each selected key - this will help you think in keys rather than in the specific order of a warmup routine.
+                                    </p>
+                                    <p>
+                                        Your settings are saved in your browser, so you will only need to customize everything once!
+                                    </p>
+                                    
+                                    <p class="font-italic text-muted">
+                                        Written by <a href="https://debashisbiswas.github.io" target="_blank">Debashis Biswas</a> of the Arizona State University Clarinet Studio
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>          
+            <hr>
         </div>
         
         <div class="container-fluid text-center">
