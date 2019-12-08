@@ -169,6 +169,12 @@ $( '.btn' ).on( 'click', (function() {
     $( this ).blur(); // remove lingering outline after button click
 }));
 
+$( '#aboutModal' ).on( 'shown.bs.modal', function( e ) {
+    $( '#aboutModalButton' ).one( 'focus', function( e ) {
+        $( this ).blur(); // blur about button after about modal is closed
+    });
+});
+
 $( '.key-selection-button' ).on( 'click', (function() {
     // get the name and new setting for the button that was just pressed
     var keyName = $( this )[0].firstChild.nodeValue;
